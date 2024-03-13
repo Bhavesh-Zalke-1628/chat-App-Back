@@ -28,6 +28,6 @@ const chatModel = new Schema({
 )
 
 
-const chat = model("Chat", chatModel)
+const Chat = model("Chat", chatModel)
 
-export default chat
+export default Chat

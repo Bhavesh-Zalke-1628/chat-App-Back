@@ -43,11 +43,10 @@ userSchema.methods.comparePassword = async function (password) {
 
 userSchema.methods.generateWebToken = async function () {
     console.log(this)
-    return jwt.sign({ id: this._id }, "bhavesh  ", {
+    return jwt.sign({ id: this._id }, "bhavesh", {
         expiresIn: '2d'
     })
 }
-
 const User = model("User", userSchema)
 
 export default User

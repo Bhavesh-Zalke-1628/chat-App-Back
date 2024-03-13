@@ -52,19 +52,43 @@ const loginUser = asynchandler(async (req, res) => {
             throw new Error("User not found")
         }
 
-        const token = user.generateWebToken()
+        const token = await user.generateWebToken()
+        console.log(token)
         res.cookie('token', token, cookieOptions)
         await user.save()
         res.status(200).json({
             succss: true,
             msg: "User log in successfully",
-            user
+            user,
+            token
         })
     } catch (error) {
 
     }
 })
+
+const getUser = asynchandler(async (req, res) => {
+    const keyword = req.query.search ? {
+        $or: [
+            {
+                name: {
+                    $regex: req.query.search,
+                    $options: 'i'
+                },
+                email: {
+                    $regex: req.query.search,
+                    $options: 'i'
+                },
+            }
+        ]
+    } : {}
+
+    const user = await User.find(keyword)
+    console.log(user)
+    res.send(user)
+})
 export {
     registerUser,
-    loginUser
+    loginUser,
+    getUser
 }
