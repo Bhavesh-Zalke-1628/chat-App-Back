@@ -9,7 +9,6 @@ const router = Router();
 router.route('/')
     .post(registerUser)
     .get(
-        protect,
         getUser)
 router.route('/login').post(loginUser)
 

@@ -7,7 +7,7 @@ const cookieOptions = {
 }
 const registerUser = asynchandler(async (req, res) => {
     const { name, email, password, pic } = req.body
-    if (!name || !email || !password || !pic) {
+    if (!name || !email || !password) {
         res.status(400)
         throw new Error('Please add all fields')
     }
@@ -22,7 +22,6 @@ const registerUser = asynchandler(async (req, res) => {
         name,
         email,
         password,
-        pic,
     })
     const token = await user.generateWebToken()
     res.cookie("token", token, cookieOptions)
@@ -47,6 +46,7 @@ const loginUser = asynchandler(async (req, res) => {
             throw new Error("Please add all fields")
         }
         const user = await User.findOne({ email })
+        console.log(user)
         if (!user && user.comparePassword(password)) {
             res.status(400)
             throw new Error("User not found")
