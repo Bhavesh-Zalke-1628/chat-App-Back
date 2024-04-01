@@ -3,6 +3,7 @@ import cors from 'cors'
 import dbConnection from './Config/dbConnection.js'
 import userRouter from './Router/userRoute.js'
 import chatRouter from './Router/chatRoute.js'
+import morgan from 'morgan'
 const app = express()
 
 app.use(express.json())
@@ -11,6 +12,8 @@ app.use(cors({
     methods: ['GET', 'POST', "DELETE", "UPDATE"],
     credentials: true
 }))
+
+app.use(morgan('dev'))
 
 app.use('/api/user', userRouter)
 app.use('/api/chat', chatRouter)
