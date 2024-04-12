@@ -1,9 +1,9 @@
 import asynchandler from 'express-async-handler'
 import User from '../model/userModel.js'
-const cookieOptions = {
-    expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
+const cookieOption = {
     httpOnly: true,
-    secure: false
+    maxAge: 7 * 24 * 60 * 1000, //for the 7 days login token
+    secure: true
 }
 const registerUser = asynchandler(async (req, res) => {
     const { name, email, password, pic } = req.body
@@ -52,10 +52,14 @@ const loginUser = asynchandler(async (req, res) => {
             throw new Error("User not found")
         }
 
+        // Generate the JWT token
         const token = await user.generateWebToken()
-        console.log(token)
-        res.cookie('token', token, cookieOptions)
+
+        // Stored the generated token in the cookie
+        res.cookie('token', token, cookieOption)
+
         await user.save()
+        console.log(user)
         res.status(200).json({
             succss: true,
             msg: "User log in successfully",
@@ -63,7 +67,7 @@ const loginUser = asynchandler(async (req, res) => {
             token
         })
     } catch (error) {
-
+        throw new Error(error)
     }
 })
 
