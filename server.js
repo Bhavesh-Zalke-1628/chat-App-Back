@@ -5,7 +5,8 @@ import userRouter from './Router/userRoute.js'
 import chatRouter from './Router/chatRoute.js'
 import morgan from 'morgan'
 const app = express()
-
+import { config } from 'dotenv'
+config()
 app.use(express.json())
 app.use(cors({
     origin: '*',
