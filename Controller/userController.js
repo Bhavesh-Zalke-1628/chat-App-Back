@@ -24,7 +24,7 @@ const registerUser = asynchandler(async (req, res) => {
         password,
     })
     const token = await user.generateWebToken()
-    res.cookie("token", token, cookieOptions)
+    res.cookie("token", token, cookieOption)
     await user.save()
     if (user) {
         res.status(200).json({
