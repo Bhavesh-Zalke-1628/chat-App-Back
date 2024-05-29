@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { protect } from "../Middleware/authMiddleWare";
-import { allMessages, sendMessage } from "../Controller/messageController";
+import { protect } from "../Middleware/authMiddleWare.js";
+import { allMessages, sendMessage } from "../Controller/messageController.js";
 const router = Router()
 
 router.route('/')
