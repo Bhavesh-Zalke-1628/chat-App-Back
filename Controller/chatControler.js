@@ -4,7 +4,6 @@ import User from '../model/userModel.js';
 
 const accessChat = asynchandler(async (req, res) => {
     const { userId } = req.body;
-    console.log(userId)
     if (!userId) {
         console.log("UserId param not sent with request");
         return res.sendStatus(400);
@@ -49,8 +48,7 @@ const accessChat = asynchandler(async (req, res) => {
 });
 
 const fetchChats = asynchandler(async (req, res) => {
-    console.log('hello token yet nahi ahe ')
-    console.log(req.user)
+
     try {
         Chat.find({ users: { $elemMatch: { $eq: req.user._id } } })
             .populate("users", "-password")
@@ -106,7 +104,6 @@ const createGroupChat = asynchandler(async (req, res) => {
 });
 const renameGroupName = asynchandler(async (req, res, next) => {
     const { chatId, chatName } = req.body;
-    console.log(req.body)
     try {
         const updateChat = await Chat.findByIdAndUpdate(
             chatId,

@@ -46,7 +46,6 @@ const loginUser = asynchandler(async (req, res) => {
             throw new Error("Please add all fields")
         }
         const user = await User.findOne({ email })
-        console.log(user)
         if (!user && user.comparePassword(password)) {
             res.status(400)
             throw new Error("User not found")
@@ -88,7 +87,6 @@ const getUser = asynchandler(async (req, res) => {
     } : {}
 
     const user = await User.find(keyword)
-    console.log(user)
     res.send(user)
 })
 export {
