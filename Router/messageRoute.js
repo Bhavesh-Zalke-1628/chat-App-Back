@@ -8,5 +8,6 @@ router.route('/')
 
 router.route('/:chatId')
     .get(allMessages)
+    
 
 export default router
